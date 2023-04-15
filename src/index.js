@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import app from "./app.js";
 import config from "./config/index.js";
-/* write iffe style code with async */ 
+/* write iif style code with async */ 
 
 (async()=>{
     try {
