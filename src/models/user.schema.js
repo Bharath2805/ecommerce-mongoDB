@@ -55,7 +55,7 @@ const User = new mongoose.Schema(
     },
     // generate forgotPasswordToken
     generateForgotPasswordToken: function(){
-        const frogotToken = crypto.randomBytes(20).toString("hex");
+        const forgotToken = crypto.randomBytes(20).toString("hex");
 
         this.forgotPasswordToken = crypto
         .createHash("sha256")
@@ -65,7 +65,7 @@ const User = new mongoose.Schema(
         //time for token to expire time
         this.forgotPasswordTokenExpiry = Date.now() + 20 * 60 * 1000    ;
 
-        return frogotToken;
+        return forgotToken;
 
 
     }
