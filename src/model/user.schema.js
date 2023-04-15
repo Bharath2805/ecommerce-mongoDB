@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 import AuthRole from  "../utils/AuthRole.js";
 import bcrypt from "bcryptjs";
+import config from "../config/index.js";
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 const User = new mongoose.Schema(
     {
@@ -45,7 +48,27 @@ const User = new mongoose.Schema(
     User.methods = {
         comparePassword : async function(password){
             return await bcrypt.compare(password,this.password)
-        }
+        },
+        // generate token
+        generateToken: function(){
+            jwt.sign({id:this._id},config.JWT_SECRET,{expiresIn:config.JWT_EXPIRY})
+    },
+    // generate forgotPasswordToken
+    generateForgotPasswordToken: function(){
+        const frogotToken = crypto.randomBytes(20).toString("hex");
+
+        this.forgotPasswordToken = crypto
+        .createHash("sha256")
+        .update(forgotToken)
+        .digest("hex");
+
+        //time for token to expire time
+        this.forgotPasswordTokenExpiry = Date.now() + 20 * 60 * 1000    ;
+
+        return frogotToken;
+
+
     }
+}
 
 export default mongoose.model("User",User);
