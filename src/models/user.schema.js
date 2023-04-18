@@ -5,6 +5,7 @@ import config from "../config/index.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
+
 const User = new mongoose.Schema(
     {
         name:{
